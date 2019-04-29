@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MvC.Models.mvcPostUpdateModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<p>
+    <a href="@Url.Action("AddOrEdit" , "PostUpdate")" class="btn-btn-default"><i class="fas fa-plus" style="font-size:48px"></i>Post new Update</a>
+</p>
+<table class="table table-striped">
+    <thead class="table-heading" style="color:white;font-size:15px">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Post_Description)
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post_Description, "Post")
+            </td>
+            <td>
+               <a onclick="Delete(@item.Post_Update_ID)" class="btn btn-default">Remove</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]' //passing tempdata KEy
+            if (successMessage != '') //if succMsg not empty show alert
+                alertify.success(successMessage);
+        });
+            function Delete(id){
+                alertify.confirm('There isnt a recycle bin', 'You sure about that?', function () {
+                    window.location.href = '@Url.Action("Delete" , "About")/' + id;
+                }, null);
+            }
+
+    </script>
+}
+
